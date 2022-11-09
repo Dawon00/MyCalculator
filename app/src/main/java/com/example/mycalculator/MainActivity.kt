@@ -51,6 +51,36 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun onEqual(view: View){
+        if(lastNumeric){
+            var tvValue = tvInput?.text.toString()
+            var prefix = ""
+
+            try{
+                if(tvValue.startsWith("-")){
+                    prefix = "-"
+                    tvValue = tvValue.substring(1)
+                }
+                if(tvValue.contains("-")){
+                    val splitValue = tvValue.split("-")
+                    var one = splitValue[0]
+                    var two = splitValue[1]
+
+                    if(prefix.isNotEmpty()){
+                        one = prefix + one
+                    }
+
+                    var result = one.toDouble() - two.toDouble()
+                    tvInput?.text = result.toString()
+                }
+
+
+            }catch (e: ArithmeticException){ //산술적으로 계산이 불가능할 경우
+                e.printStackTrace() //logcat에 출력
+            }
+        }
+    }
+
     private fun isOperatorAdded(value : String) : Boolean{ //연산자가 추가되었는지
         return if(value.startsWith("-")){
             false //마이너스 기호를 무시함
